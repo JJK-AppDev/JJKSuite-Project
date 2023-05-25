@@ -90,6 +90,10 @@ Route::post('/postLogin', [AuthController::class, 'postLogin'])->name('postlogin
 
 Route::get('/', [HomeController::class, 'index'])->name('home');
 
+Route::get('toyyibpay', 'ToyyibpayController@createBill')->name('toyyibpay-create');
+Route::get('toyyibpay-status', 'ToyyibpayController@paymentStatus')->name('toyyibpay-status');
+Route::post('toyyibpay-callback', 'ToyyibpayController@callback')->name('toyyibpay-callback');
+
 Route::get('/sendEvent', function () {
     $superAdmins = User::where('role', 'Super')->get();
     event(new RefreshDashboardEvent("Someone reserved a room"));
