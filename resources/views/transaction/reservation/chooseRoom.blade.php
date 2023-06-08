@@ -52,7 +52,6 @@
                                     </select>
                                 </div>
                                 <div class="col-lg-2">
-  
                                     <button type="submit" class="btn myBtn shadow-sm border w-100">Search</button>
                                 </div>
                             </div>
