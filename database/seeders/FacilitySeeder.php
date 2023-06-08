@@ -20,6 +20,13 @@ class FacilitySeeder extends Seeder
             'Restaurant',
             'Spa',
             'Conference Room',
+            'Business Center',
+            'Laundry Service',
+            'Parking',
+            '24/7 Front Desk',
+            'Gift Shop',
+            'Outdoor Terrace',
+            'Room Service',
         ];
 
         $informations = [
@@ -28,7 +35,15 @@ class FacilitySeeder extends Seeder
             'On-site restaurant serving a variety of delicious cuisines.',
             'Relaxing spa offering massages, facials, and body treatments.',
             'Spacious meeting room for business conferences and events.',
+            'Fully-equipped business center with printing and copying facilities.',
+            'On-site laundry service for guests.',
+            'Secure parking area for guests with easy access.',
+            'Round-the-clock reception for guest assistance.',
+            'On-site gift shop offering souvenirs and essential items.',
+            'Relaxing outdoor terrace with seating and scenic views.',
+            '24/7 room service for in-room dining experience.',
         ];
+
 
         for ($i = 0; $i < count($names); $i++) {
             Facility::create([
