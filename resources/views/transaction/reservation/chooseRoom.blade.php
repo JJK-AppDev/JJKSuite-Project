@@ -51,7 +51,8 @@
                                         <option value="DESC" @if (request()->input('sort_type') == 'DESC') selected @endif>Descending</option>
                                     </select>
                                 </div>
-                                <div class="col-lg-2">  
+                                <div class="col-lg-2">
+  
                                     <button type="submit" class="btn myBtn shadow-sm border w-100">Search</button>
                                 </div>
                             </div>
