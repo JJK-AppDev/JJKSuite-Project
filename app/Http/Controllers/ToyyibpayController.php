@@ -3,50 +3,64 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Toyyibpay;
+use App\Models\Customer;
+use App\Models\Room;
+use App\Models\Payment;
+use App\Helpers\Helper;
+use App\Repositories\TransactionRepository;
+use App\Models\Transaction;
 
 class ToyyibpayController extends Controller
 {
-    public function createBill()
+    public function getBankFPX()
     {
-        $option = array(
-            'userSecretKey' => config('toyyibpay.key'),
-            'categoryCode' => config('toyyibpay.category'),
-            'billName' => 'Car Rental WXX123',
-            'billDescription' => 'Car Rental WXX123 On Sunday',
+        $data = Toyyibpay::getBanksFPX();
+
+        dd($data);
+
+    }
+
+    public function createFee(Request $request, $payment, Customer $customer, Room $room)
+    {
+        $price = $request->input('price');
+        $payments = Payment::orderBy('id', 'DESC')->get();
+
+        $code = config('toyyibpay.code');
+
+        // Retrieve the transaction from the request or fetch it from the database
+        $transactionId = $request->route('transaction');
+        $transaction = Transaction::findOrFail($transactionId);
+
+        $bill_object = [
+            'billName' => 'Fee Hotel',
+            'billDescription' => $transaction->room->number,
             'billPriceSetting' => 1,
             'billPayorInfo' => 1,
-            'billAmount' => 100,
-            'billReturnUrl' => route('toyyibpay-status'),
-            'billCallbackUrl' => route('toyyibpay-callback'),
-            'billExternalReferenceNo' => 'Bill-0001',
-            'billTo' => 'SIEW SHENG XIANG',
-            'billEmail' => 'shengxiang9920@gmail.com',
-            'billPhone' => '0129020916',
-            'billSplitPayment' => 0,
-            'billSplitPaymentArgs' => '',
-            'billPaymentChannel' => '0',
-            'billContentEmail' => 'Thank you for purchasing our product!',
-            'billChargeToCustomer' => 2
-            //'billExpiryDate' => '17-12-2020 17:00:00',
-            //'billExpiryDays' => 3
-          );  
+            'billAmount' => $price * 100,
+            'billExternalReferenceNo' => $transaction->customer->name,
+            'billTo' => $transaction->customer->name,
+            'billEmail' => $transaction->customer->user->email,
+            'billPhone' => '+60121212890',
+            'billContentEmail'=>'Thank you for Booking our JJKSuite Hotel!',
+        ];
+        //dd($bill_object);
 
-          $url = 'https://toyyibpay.com/index.php/api/createBill';
-          $response = Http::asForm()->post($url, $option);
-          $billCode = $response[0]['BillCodee'];
+        $data = Toyyibpay::createBill($code, (object) $bill_object);
 
-          return redirect('https://dev.toyyibpaycom/' . $billCode);
+        $bill_code = $data[0]->BillCode;
+
+        return redirect()->route('bill:payment', $bill_code);
     }
 
-    public function paymentStatus()
+
+
+    public function billPaymentLink($bill_code)
     {
-        $response = request()->all(['status_id', 'billcode', 'order_id']);
-        return $response;
+        //dd($bill_code);
+        $data = Toyyibpay::billPaymentLink($bill_code);
+
+        return redirect($data);
     }
 
-    public function callback()
-    {
-        $reponse = request()->all(['refno', 'status', 'reason', 'billcode', 'order_id', 'amount']);
-        Log::info($response);
-    }
 }

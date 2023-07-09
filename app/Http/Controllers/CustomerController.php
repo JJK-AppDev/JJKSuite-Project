@@ -48,7 +48,8 @@ class CustomerController extends Controller
     public function update(Customer $customer, StoreCustomerRequest $request)
     {
         $customer->update($request->all());
-        return redirect('customer')->with('success', 'customer ' . $customer->name . ' udpated!');
+        return redirect('customer')->with('success', 'customer ' . $customer->name . ' updated!');
+        
     }
 
     public function destroy(Customer $customer, ImageRepository $imageRepository)

@@ -23,16 +23,19 @@ class UpdateCustomerRequest extends FormRequest
      */
     public function rules()
     {
-        if ($this->user->role == "Customer") {
+        $customerId = $this->route('customer')->id;
+
+        if ($this->user()->role == "Customer") {
             return [
                 'name' => 'required',
-                'email' => 'required|unique:users,email,' . $this->user->id,
+                'email' => 'required|unique:users,email,' . $customerId,
                 'role' => 'required|in:Customer',
             ];
         }
+
         return [
             'name' => 'required',
-            'email' => 'required|unique:users,email,' . $this->user->id,
+            'email' => 'required|unique:users,email,' . $customerId,
             'role' => 'required|in:Super,Admin',
         ];
     }

@@ -37,8 +37,13 @@ class PaymentController extends Controller
 
         $this->paymentRepository->store($request, $transaction, 'Payment');
 
-        return redirect()->route('transaction.index')->with('success', 'Transaction room ' . $transaction->room->number . ' success, ' . Helper::convertToRiggit($request->payment) . ' paid');
+        $payment = Payment::latest()->first();
+        $price = $payment->price;
+        //dd($price);
+        return redirect()->route('create:fee', ['transaction' => $transaction, 'price' => $price]);
+        //return app('redirect')->route('transaction.index')->with('success', 'Transaction room ' . $transaction->room->number . ' success, ' . Helper::convertToRinggit($request->payment) . ' paid');
     }
+
 
     public function invoice(Payment $payment)
     {

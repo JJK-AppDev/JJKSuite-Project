@@ -23,13 +23,15 @@ class StoreCustomerRequest extends FormRequest
      */
     public function rules()
     {
+        $userId = $this->user()->id ?? null;
+
         return [
             'name' => 'required',
             'address' => 'required|max:255',
             'job' => 'required',
             'birthdate' => 'required|date',
             'gender' => 'required|in:Male,Female',
-            'email' => 'required|unique:users,email',
+            'email' => 'required|unique:users,email,' . $userId,
             'avatar' => 'mimes:png,jpg',
         ];
     }

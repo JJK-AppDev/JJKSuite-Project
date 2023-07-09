@@ -2,95 +2,73 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\StoreFacilityRequest;
 use App\Models\Facility;
+use App\Repositories\FacilityRepository;
 use Illuminate\Http\Request;
-use App\Models\Type;
 
 class FacilityController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function index(Request $request)
+    private $facilityRepository;
+
+    public function __construct(FacilityRepository $facilityRepository)
     {
-      $facilities = Facility::all();
-      return view('facility.index', compact('facilities'));
-      
+        $this->facilityRepository = $facilityRepository;
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
+    public function index(Request $request)
+    {
+        if ($request->ajax()) {
+            return $this->facilityRepository->getFacilityDatatable($request);
+        }
+        return view('facility.index');
+    }
+
     public function create()
     {
-        //
-        $view = view('facilities.create')->render();
+        $view = view('facility.create')->render();
+
         return response()->json([
             'view' => $view,
         ]);
     }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function store(Request $request)
+    public function store(StoreFacilityRequest $request)
     {
-        //
-        $facilities = Facility::create($request->all());
+        $facility = $this->facilityRepository->store($request);
         return response()->json([
-            'message' => 'success', 'Facility' . $facilities->name . ' created'
+            'message' => 'success', 'Facility ' . $facility->name . ' created'
         ]);
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  \App\Models\Facility  $facilities
-     * @return \Illuminate\Http\Response
-     */
-    public function show(Facility $facilities)
+    public function edit(Facility $facility)
     {
-        //
+        $view = view('facility.edit', compact('facility'))->render();
+
+        return response()->json([
+            'view' => $view,
+        ]);
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \App\Models\Facility  $facilities
-     * @return \Illuminate\Http\Response
-     */
-    public function edit(Facility $facilities)
+    public function update(Facility $facility, StoreFacilityRequest $request)
     {
-    //
+        $facility->update($request->all());
+        return response()->json([
+            'message' => 'success', 'Facility ' . $facility->name . ' updated!'
+        ]);
     }
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\Facility  $facilities
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, Facility $facilities)
+    public function destroy(Facility $facility)
     {
-    //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  \App\Models\Facility  $facilities
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy(Facility $facilities)
-    {
-      //
+        try {
+            $facility->delete();
+            return response()->json([
+                'message' => 'Facility ' . $facility->name . ' deleted!'
+            ]);
+        } catch (\Exception $e) {
+            return response()->json([
+                'message' => 'Facility ' . $facility->name . ' cannot be deleted! Error Code: ' . $e->errorInfo[1]
+            ], 500);
+        }
     }
 }
