@@ -1,7 +1,17 @@
 @extends('template.master')
 @section('title', 'Facility')
+@section('head')
+    <style>
+        .text {
+            display: block;
+            width: 150px;
+            height: 100px;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+    </style>
+@endsection
 @section('content')
-
     <div class="row">
         <div class="col-lg-12">
             <div class="row mt-2 mb-2">
@@ -32,29 +42,16 @@
                                         </tr>
                                     </thead>
                                     <tbody>
-                                      @foreach ($facilities as $facility)
-                                         <tr>
-                                             <td>{{ $loop->iteration }}</td>
-                                             <td>{{ $facility->name }}</td>
-                                             <td>{{ $facility->detail }}</td>
-                                             <td>
-                                                 <!-- Add action buttons here -->
-                                             </td>
-                                         </tr>
-                                      @endforeach
                                     </tbody>
                                 </table>
                             </div>
                         </div>
                         <div class="card-footer">
                             <h3>Facility</h3>
-
                         </div>
                     </div>
                 </div>
             </div>
         </div>
     </div>
-
-  
 @endsection

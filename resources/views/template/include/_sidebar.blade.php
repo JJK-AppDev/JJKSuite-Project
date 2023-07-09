@@ -8,6 +8,7 @@
     <div class="d-flex flex-column"
         style="width: 4.5rem; border-top-right-radius:0.5rem; border-bottom-right-radius:0.5rem;">
         <ul class="nav nav-pills nav-flush flex-column mb-auto text-center">
+        @if (auth()->user()->role == 'Super' || auth()->user()->role == 'Admin')
             <li class="mb-2 bg-white rounded cursor-pointer">
                 <a href="{{ route('dashboard.index') }}"
                     class="nav-link py-3 border-bottom myBtn
@@ -17,7 +18,7 @@
                     <i class="fas fa-home"></i>
                 </a>
             </li>
-            @if (auth()->user()->role == 'Super' || auth()->user()->role == 'Admin')
+
                 <li class="mb-2 bg-white rounded cursor-pointer">
                     <a href="{{ route('transaction.index') }}"
                         class="nav-link py-3 border-bottom border-right myBtn
@@ -29,7 +30,7 @@
                 </li>
                 <li class="mb-2 bg-white rounded cursor-pointer">
                     <a class="nav-link py-3 border-bottom border-right myBtn  dropdown-toggle dropend
-                    {{ in_array(Route::currentRouteName(), ['room.index', 'room.show', 'room.create', 'room.edit', 'type.index', 'type.create', 'type.edit', 'roomstatus.index', 'roomstatus.create', 'roomstatus.edit']) ? 'active' : '' }}
+                    {{ in_array(Route::currentRouteName(), ['room.index', 'room.show', 'room.create', 'room.edit', 'type.index', 'type.create', 'type.edit', 'roomstatus.index', 'roomstatus.create', 'roomstatus.edit', 'facility.index']) ? 'active' : '' }}
                         "
                         data-bs-toggle="dropdown" aria-expanded="false">
                         <i class="fas fa-house-user"></i>
@@ -43,8 +44,7 @@
                 </li>
                 <li class="mb-2 bg-white rounded cursor-pointer">
                     <a class="nav-link py-3 border-bottom border-right myBtn  dropdown-toggle
-                        {{ in_array(Route::currentRouteName(), ['customer.index', 'customer.create', 'customer.edit', 'user.index', 'user.create', 'user.edit']) ? 'active' : '' }}
-                    "
+                        {{ in_array(Route::currentRouteName(), ['customer.index', 'customer.create', 'customer.edit', 'user.index', 'user.create', 'user.edit']) ? 'active' : '' }}"
                         data-bs-toggle="dropdown" aria-expanded="false">
                         <i class="fas fa-users"></i>
                     </a>
@@ -55,7 +55,36 @@
                         @endif
                     </ul>
                 </li>
-            @endif
+
+                <!--elseIf Customer roles -->
+                @elseif (auth()->user()->role == 'Customer')
+                    @if(isset($customer))
+                        <li class="mb-2 bg-white rounded cursor-pointer">
+                            <a href="{{ route('transaction.reservation.cust.edit', ['customer' => $customer->id]) }}"
+                                class="nav-link py-3 border-bottom border-right myBtn
+                                {{ in_array(Route::currentRouteName(), ['payment.index', 'transaction.reservation.cust.edit',
+                                    'transaction.reservation.usersearch', 'transaction.reservation.cust.storeCustomer',
+                                    'transaction.reservation.cust.viewCountPerson', 'transaction.reservation.cust.chooseRoom',
+                                    'transaction.reservation.cust.confirmation', 'transaction.reservation.cust.payDownPayment' ]) ? 'active' : '' }}"
+
+                                    data-bs-toggle="tooltip" data-bs-placement="right" title="Booking/Transactions">
+                                <i class="fas fa-cash-register"></i>
+                            </a>
+                        </li>
+                        <li class="mb-2 bg-white rounded cursor-pointer">
+                            <a href="{{ route('customer.roomindex') }}"
+                                class="nav-link py-3 border-bottom border-right myBtn
+                                {{ in_array(Route::currentRouteName(), ['customer.index', 'customer.roomindex', 'customer.create',
+                                'customer.edit', 'user.index', 'user.create', 'user.edit']) ? 'active' : '' }}"
+
+                                data-bs-toggle="tooltip" data-bs-placement="right" title="Transactions">
+                                <i class="fas fa-cash-register"></i>
+                            </a>
+                        </li>
+
+                    @endif
+                @endif
+
         </ul>
     </div>
 </div>

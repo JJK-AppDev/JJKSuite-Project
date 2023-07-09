@@ -5,6 +5,7 @@
 @endsection
 @section('content')
     @include('transaction.reservation.progressbar')
+    
     <div class="container mt-3">
         <div class="row justify-content-md-center">
             <div class="col-md-8 mt-2">

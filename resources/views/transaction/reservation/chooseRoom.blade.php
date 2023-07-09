@@ -23,6 +23,7 @@
             <div class="col-md-8 mt-2">
                 <div class="card shadow-sm border">
                     <div class="card-body p-3">
+                      <!-- fetch checkin checkout data -->
                         <h2>{{ $roomsCount }} Room Available for:</h2>
                         <p>{{ request()->input('count_person') }}
                             {{ Helper::plural('People', request()->input('count_person')) }} on
@@ -65,7 +66,7 @@
                                             <strong class="d-inline-block mb-2 text-secondary">{{ $room->capacity }}
                                                 {{ Str::plural('Person', $room->capacity) }}</strong>
                                             <h3 class="mb-0">{{ $room->number }} ~ {{ $room->type->name }}</h3>
-                                            <div class="mb-1 text-muted">{{ Helper::convertToRiggit($room->price) }} /
+                                            <div class="mb-1 text-muted">{{ Helper::convertToRinggit($room->price) }} /
                                                 Day
                                             </div>
                                             <div class="wrapper">

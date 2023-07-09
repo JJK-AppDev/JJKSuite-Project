@@ -500,7 +500,7 @@ button:focus {
 }
 
 .banner_area .bg-parallax {
-  background: url("../image/banner_bg.jpg") no-repeat scroll center 0/cover;
+  background: url("../img/userviewimg/banner_bg.jpg") no-repeat scroll center 0/cover;
   opacity: 0.50;
 }
 
@@ -673,7 +673,7 @@ button:focus {
 }
 
 .breadcrumb_area .bg-parallax {
-  background: url("../image/about_banner.jpg") no-repeat scroll center 0/cover;
+  background: url("../img/userviewimg/about_banner.jpg") no-repeat scroll center 0/cover;
   opacity: 0.50;
   z-index: -1;
 }
@@ -718,7 +718,7 @@ button:focus {
 }
 
 .blog_banner .bg-parallax {
-  background: url(../image/banner/banner-1.jpg) no-repeat scroll center center;
+  background: url(../img/userviewimg/banner/banner-1.jpg) no-repeat scroll center center;
 }
 
 .blog_banner .banner_content {
@@ -751,7 +751,7 @@ button:focus {
 }
 
 .blog_banner_two .bg-parallax {
-  background: url(../image/banner/banner-2.jpg) no-repeat scroll center top/cover;
+  background: url(../img/userviewimg/banner/banner-2.jpg) no-repeat scroll center top/cover;
 }
 
 /*=============End Blog Banner css =============*/
@@ -829,7 +829,7 @@ button:focus {
 }
 
 .facilities_area .bg-parallax {
-  background: url("../image/facilites_bg.jpg") no-repeat scroll center 0/cover;
+  background: url("../img/userviewimg/facilites_bg.jpg") no-repeat scroll center 0/cover;
   opacity: 0.15;
 }
 
@@ -3138,7 +3138,7 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 .primary-checkbox input:checked + label {
-  background: url(../image/elements/primary-check.png) no-repeat center center/cover;
+  background: url(../img/userviewimg/elements/primary-check.png) no-repeat center center/cover;
   border: none;
 }
 
@@ -3176,7 +3176,7 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 .confirm-checkbox input:checked + label {
-  background: url(../image/elements/success-check.png) no-repeat center center/cover;
+  background: url(../img/userviewimg/elements/success-check.png) no-repeat center center/cover;
   border: none;
 }
 
@@ -3219,7 +3219,7 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 .disabled-checkbox input:checked + label {
-  background: url(../image/elements/disabled-check.png) no-repeat center center/cover;
+  background: url(../img/userviewimg/elements/disabled-check.png) no-repeat center center/cover;
   border: none;
 }
 
@@ -3257,7 +3257,7 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 .primary-radio input:checked + label {
-  background: url(../image/elements/primary-radio.png) no-repeat center center/cover;
+  background: url(../img/userviewimg/elements/primary-radio.png) no-repeat center center/cover;
   border: none;
 }
 
@@ -3295,7 +3295,7 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 .confirm-radio input:checked + label {
-  background: url(../image/elements/success-radio.png) no-repeat center center/cover;
+  background: url(../img/userviewimg/elements/success-radio.png) no-repeat center center/cover;
   border: none;
 }
 
@@ -3349,7 +3349,7 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 .disabled-radio input:checked + label {
-  background: url(../image/elements/disabled-radio.png) no-repeat center center/cover;
+  background: url(../img/userviewimg/elements/disabled-radio.png) no-repeat center center/cover;
   border: none;
 }
 

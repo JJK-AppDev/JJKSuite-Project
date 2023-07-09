@@ -13,4 +13,6 @@ class Type extends Model
         'name',
         'information'
     ];
+
+  
 }

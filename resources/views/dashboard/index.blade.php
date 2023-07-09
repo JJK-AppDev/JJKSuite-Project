@@ -1,6 +1,20 @@
 @extends('template.master')
 @section('title', 'Dashboard')
 @section('content')
+
+@if (Session::has('success'))
+        <div class="alert alert-success alert-dismissible fade show mt-4" role="alert">
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+            {{ Session::get('success') }}
+
+        </div>
+        <script>
+            setTimeout(function() {
+                $('.alert-success').fadeOut('slow');
+            }, 10000);
+        </script>
+@endif
+
     <div id="dashboard">
         <div class="row">
             <div class="col-lg-6 mb-3">
@@ -79,7 +93,7 @@
                                                 <td>{{ Helper::getDateDifference(now(), $transaction->check_out) == 0 ? 'Last Day' : Helper::getDateDifference(now(), $transaction->check_out) . ' ' . Helper::plural('Day', Helper::getDateDifference(now(), $transaction->check_out)) }}
                                                 </td>
                                                 <td>
-                                                    {{ $transaction->getTotalPrice() - $transaction->getTotalPayment() <= 0 ? '-' : Helper::convertToRupiah($transaction->getTotalPrice() - $transaction->getTotalPayment()) }}
+                                                    {{ $transaction->getTotalPrice() - $transaction->getTotalPayment() <= 0 ? '-' : Helper::convertToRinggit($transaction->getTotalPrice() - $transaction->getTotalPayment()) }}
                                                 </td>
                                                 <td>
                                                     <span

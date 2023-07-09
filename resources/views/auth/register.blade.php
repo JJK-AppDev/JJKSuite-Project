@@ -1,6 +1,41 @@
 @extends('template.auth')
-@section('title', 'Dashboard')
+@section('title', 'Register')
 @section('content')
+<style>
+    #btn_submit {
+        width: 100%;
+        transition: all 0.5s ease-in-out;
+    }
+
+    #btn_submit.isLoading {
+        width: 50px;
+        border-radius: 100vw;
+    }
+
+    .hide {
+        display: none;
+    }
+
+    .toggle-password.position-absolute,
+    .toggleConfirmPassword.position-absolute {
+        top: 50%;
+        transform: translateY(-50%);
+        right: 35px;
+        cursor: pointer;
+        z-index: 2;
+    }
+
+
+
+</style>
+
+    <!-- Icon Bootstrap -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.3/font/bootstrap-icons.css">
+
+    <!-- sweetAlert -->
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script src="https://cdn.bootcdn.net/ajax/libs/limonte-sweetalert2/11.7.0/sweetalert2.all.js"></script>
+
     <link href="{{ asset('style/css/stylelogin.css') }}" rel="stylesheet">
     <div class="wavestop">
         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 320">
@@ -24,37 +59,76 @@
                         </div>
                         <div class="row">
                             <div class="col-lg-12">
-                                <h5 class="card-title text-center">Sistem Informasi Perusahaan</h5>
+                              <h5 class="card-title text-center" style="font-weight: bold">JJKSuite </h5>
+                              <p class="text-center"><i>Step into a world of sorcery at JJKSuite: <br>Where Hotel Reservations transcend reality</i></p> <br>
                             </div>
                         </div>
-                        <form class="form-signin" action="http://localhost:81/sip/pelamar/fungsi_daftar" method="post">
+                        <form onsubmit="return disableButton()" class="form-signin" action="/postRegister" method="POST">
+                            @csrf
                             <div class="row">
                                 <div class="col-lg-12">
-                                    <div class="form-label-group">
-                                        <input type="email" id="email" name="email" class="form-control" placeholder="Email"
-                                            value="" required autofocus>
-                                        <label for="email">Email</label>
-                                    </div>
-                                    <div class="form-label-group">
-                                        <input type="password" id="password" name="password" autocomplete="new-password"
-                                            class="form-control" placeholder="Password" value="" required>
-                                        <label for="password">Password</label>
-                                    </div>
-                                    <div class="form-label-group">
-                                        <input type="password" id="password_konfirmasi" name="password_konfirmasi"
-                                            class="form-control" placeholder="Repead Password" value="" required>
-                                        <label for="password_konfirmasi">Konfirmasi password</label>
-                                    </div>
+                                  <div class="form-label-group">
+                                      <input type="text" id="name" name="name" class="form-control @error('name') is-invalid @enderror" placeholder="Name" required>
+                                      <label for="name">Name</label>
+                                      @error('name')
+                                          <span class="invalid-feedback" role="alert">
+                                              <strong>{{ $message }}</strong>
+                                          </span>
+                                      @enderror
+                                  </div>
+
+                                  <div class="form-label-group">
+                                      <input type="email" id="email" name="email" class="form-control @error('email') is-invalid @enderror"
+                                          placeholder="Email" value="{{ old('email') }}" required autofocus>
+                                      <label for="email">Email</label>
+                                      @error('email')
+                                          <span class="invalid-feedback" role="alert">
+                                              <strong>{{ $message }}</strong>
+                                          </span>
+                                      @enderror
+                                  </div>
+
+                                  <!-- password -->
+                                  <div class="form-label-group position-relative">
+                                      <input type="password" id="password" name="password" autocomplete="new-password"
+                                          class="form-control @error('password') is-invalid @enderror" placeholder="Password" value="{{ old('password') }}"
+                                          required>
+                                      <label for="password">Password</label>
+                                      <i class="bi bi-eye-slash-fill toggle-password position-absolute" id="togglePassword"></i>
+
+                                      @error('password')
+                                          <span class="invalid-feedback" role="alert">
+                                              <strong>{{ $message }}</strong>
+                                          </span>
+                                      @enderror
+                                  </div>
+
+
+                                  <!-- confirm password -->
+                                  <div class="form-label-group position-relative">
+                                      <input type="password" id="confirmPassword" name="confirmPassword" autocomplete="new-password"
+                                          class="form-control @error('confirmPassword') is-invalid @enderror" placeholder="Password confirmation"
+                                          value="{{ old('confirmPassword') }}" required>
+                                      <label for="confirmPassword">Confirm Password</label>
+                                      <i class="bi bi-eye-slash-fill toggleConfirmPassword position-absolute" id="toggleConfirmPassword"></i>
+
+                                      @error('confirmPassword')
+                                          <span class="invalid-feedback" role="alert">
+                                              <strong>{{ $message }}</strong>
+                                          </span>
+                                      @enderror
+                                  </div>
+
                                 </div>
                             </div>
                             <div class="row">
                                 <div class="col-lg-12 d-flex justify-content-center">
                                     <button class="btn btn-lg btn-primary text-white btn-block text-uppercase"
-                                        type="submit">Daftar</button>
+                                        type="submit">Register</button>
                                 </div>
                             </div>
                             <hr class="my-4">
-                            <p class="text-center">Sudah memiliki akun? <a href="/login">masuk</a></p>
+                            <p class="text-center">Already have an account? <a href="/login">Log in</a></p>
                         </form>
                     </div>
                 </div>
@@ -68,4 +142,46 @@
             </path>
         </svg>
     </div>
+
+    <script>
+        function disableButton() {
+            $("#loading_submit").removeClass("hide");
+            $("#text_submit").addClass("hide");
+            $("#btn_submit").addClass("isLoading").attr('disabled', 'disabled');
+        }
+    </script>
+
+    <!-- Toggle Password -->
+    <script>
+            const togglePassword = document.querySelector("#togglePassword");
+            const password = document.querySelector("#password");
+
+            togglePassword.addEventListener("click", function () {
+                // toggle the type attribute
+                const type = password.getAttribute("type") === "password" ? "text" : "password";
+                password.setAttribute("type", type);
+
+                // toggle the icon
+                this.classList.toggle("bi-eye");
+            });
+
+            const toggleConfirmPassword = document.querySelector("#toggleConfirmPassword");
+            const confirmPassword = document.querySelector("#confirmPassword");
+
+            toggleConfirmPassword.addEventListener("click", function () {
+                // toggle the type attribute
+                const type = confirmPassword.getAttribute("type") === "password" ? "text" : "password";
+                confirmPassword.setAttribute("type", type);
+
+                // toggle the icon
+                this.classList.toggle("bi-eye");
+            });
+
+            // prevent form submit
+            /*
+            const form = document.querySelector("form");
+            form.addEventListener('submit', function (e) {
+                e.preventDefault();
+            });*/
+        </script>
 @endsection

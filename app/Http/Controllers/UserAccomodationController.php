@@ -8,7 +8,7 @@ class UserAccomodationController extends Controller
 {
     public function userAccomodation()
     {
-        return view('Userview.Accomodation');
+        return view('Userview.accomodation');
     }
 
 }

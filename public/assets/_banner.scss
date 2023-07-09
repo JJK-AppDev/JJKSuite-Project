@@ -1,11 +1,11 @@
 /*============= Start banner_area css =============*/
 .banner_area{
     background: #04091e;
-    
+
 	position: relative;
     z-index: 1;
     .bg-parallax{
-        background: url("../image/banner_bg.jpg") no-repeat scroll center 0 / cover;
+        background: url("../img/userviewimg/banner_bg.jpg") no-repeat scroll center 0 / cover;
         opacity: 0.50;
     }
     .position{
@@ -55,7 +55,7 @@
 /*============= End banner_area css =============*/
 
 .hotel_booking_area{
-    
+
 }
 .hotel_booking_table{
     background: #04091e;
@@ -77,7 +77,7 @@
         margin-bottom: 0px;
         .input-group{
             position: relative;
-            
+
             .form-control{
                 border: 1px solid #2b3146;
                 background: transparent;
@@ -142,7 +142,7 @@
     z-index: 1;
     overflow: hidden;
     .bg-parallax{
-        background: url("../image/about_banner.jpg") no-repeat scroll center 0 / cover;
+        background: url("../img/userviewimg/about_banner.jpg") no-repeat scroll center 0 / cover;
         opacity: 0.50;
         z-index: -1;
     }
@@ -185,7 +185,7 @@
     min-height: 780px;
 	overflow: hidden;
 	.bg-parallax{
-		background: url(../image/banner/banner-1.jpg) no-repeat scroll center center;
+		background: url(../img/userviewimg/banner/banner-1.jpg) no-repeat scroll center center;
 	}
 	.banner_content{
         margin-bottom: 0px;
@@ -213,8 +213,7 @@
 .blog_banner_two{
     padding: 187px 0px 104px;
     .bg-parallax{
-		background: url(../image/banner/banner-2.jpg) no-repeat scroll center top / cover;
+		background: url(../img/userviewimg/banner/banner-2.jpg) no-repeat scroll center top / cover;
 	}
 }
 /*=============End Blog Banner css =============*/
-

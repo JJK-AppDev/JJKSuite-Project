@@ -7,10 +7,10 @@ use Illuminate\Support\Str;
 
 class Helper
 {
-    public static function convertToRiggit($price)
+    public static function convertToRinggit($price)
     {
-        $price_riggit = "RM " . number_format($price, 2, ',', '.');
-        return $price_riggit;
+        $price_ringgit = "RM " . number_format($price, 2, ',', '.');
+        return $price_ringgit;
     }
 
     public static function thisMonth()

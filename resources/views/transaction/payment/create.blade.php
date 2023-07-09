@@ -30,7 +30,7 @@
                             <label class=" col-sm-2 col-form-label">Room Price</label>
                             <div class="col-sm-10">
                                 <input type="text" class="form-control"
-                                    value="{{ Helper::convertToRiggit($transaction->room->price) }}" readonly>
+                                    value="{{ Helper::convertToRinggit($transaction->room->price) }}" readonly>
                             </div>
                         </div>
                         <div class="row mb-3">
@@ -45,7 +45,7 @@
                             <label class="col-sm-2 col-form-label">Total Price</label>
                             <div class="col-sm-10">
                                 <input type="text" class="form-control"
-                                    value="{{ Helper::convertToRiggit($transaction->getTotalPrice($transaction->room->price, $transaction->check_in, $transaction->check_out)) }}"
+                                    value="{{ Helper::convertToRinggit($transaction->getTotalPrice($transaction->room->price, $transaction->check_in, $transaction->check_out)) }}"
                                     readonly>
                             </div>
                         </div>
@@ -53,14 +53,14 @@
                             <label class="col-sm-2 col-form-label">Paid Off</label>
                             <div class="col-sm-10">
                                 <input type="text" class="form-control"
-                                    value="{{ Helper::convertToRiggit($transaction->getTotalPayment()) }}" readonly>
+                                    value="{{ Helper::convertToRinggit($transaction->getTotalPayment()) }}" readonly>
                             </div>
                         </div>
                         <div class="row mb-3">
                             <label class="col-sm-2 col-form-label">Insufficient</label>
                             <div class="col-sm-10">
                                 <input type="text" class="form-control"
-                                    value="{{ Helper::convertToRiggit($transaction->getTotalPrice($transaction->room->price, $transaction->check_in, $transaction->check_out) - $transaction->getTotalPayment()) }}"
+                                    value="{{ Helper::convertToRinggit($transaction->getTotalPrice($transaction->room->price, $transaction->check_in, $transaction->check_out) - $transaction->getTotalPayment()) }}"
                                     readonly>
                             </div>
                         </div>
@@ -138,6 +138,26 @@
                                     {{ $transaction->customer->address }}
                                 </td>
                             </tr>
+                            <tr>
+                                <td style="text-align: center; ">
+                                    <span>
+                                        <i class="fas fa-envelope"></i>
+                                    </span>
+                                </td>
+                                <td>
+                                    {{ $transaction->customer->user->email }}
+                                </td>
+                            </tr>
+                            <tr>
+                                <td style="text-align: center; ">
+                                    <span>
+                                        <i class="fas fa-map-marker-alt"></i>
+                                    </span>
+                                </td>
+                                <td>
+                                    +6281233808395
+                                </td>
+                            </tr>
                         </table>
                     </div>
                 </div>
@@ -154,9 +174,10 @@
     });
 
     function redirectToToyyibpay() {
-  // Redirect the user to the "toyyibpay" API URL
-  window.location.href = "toyyibpay.php";
+    // Redirect the user to the ToyyibPay API URL
+    window.location.href = "{{ route('bill:payment', ['bill_code' => $transaction->id]) }}";
 }
+
 
 </script>
 @endsection

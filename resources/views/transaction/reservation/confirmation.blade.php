@@ -38,7 +38,7 @@
                                     <div class="col-sm-10">
                                         <input type="text" class="form-control" id="room_price" name="room_price"
                                             placeholder="col-form-label"
-                                            value="{{ Helper::convertToRiggit($room->price) }}" readonly>
+                                            value="{{ Helper::convertToRinggit($room->price) }}" readonly>
                                     </div>
                                 </div>
                             </div>
@@ -75,7 +75,7 @@
                                         <div class="col-sm-10">
                                             <input type="text" class="form-control" id="total_price" name="total_price"
                                                 placeholder="col-form-label"
-                                                value="{{ Helper::convertToRiggit(Helper::getTotalPayment($dayDifference, $room->price)) }} "
+                                                value="{{ Helper::convertToRinggit(Helper::getTotalPayment($dayDifference, $room->price)) }} "
                                                 readonly>
                                         </div>
                                     </div>
@@ -84,7 +84,7 @@
                                         <div class="col-sm-10">
                                             <input type="text" class="form-control" id="minimum_dp" name="minimum_dp"
                                                 placeholder="col-form-label"
-                                                value="{{ Helper::convertToRiggit($downPayment) }} " readonly>
+                                                value="{{ Helper::convertToRinggit($downPayment) }} " readonly>
                                         </div>
                                     </div>
                                     <div class="row mb-3">
@@ -105,7 +105,7 @@
                                         <div class="col-sm-2"></div>
                                         <div class="col-sm-10" id="showPaymentType"></div>
                                     </div>
-                                    <button type="submit" class="btn btn-primary float-end">Pay DownPayment</button>
+                                    <button type="submit" class="btn btn-primary float-end" onclick="redirectToToyyibpay()">Pay DownPayment</button>
                                 </form>
                             </div>
                         </div>
@@ -171,5 +171,11 @@
                 /(\d)(?=(\d{3})+\.)/g, "$1.")
             .toString());
     });
+
+    // Using JavaScript
+    document.getElementById('downPayment').addEventListener('click', function() {
+        window.location.href = '/create/fee';
+    });
+
 </script>
 @endsection

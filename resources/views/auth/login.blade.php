@@ -16,13 +16,31 @@
             display: none;
         }
 
+        .toggle-password {
+            position: absolute;
+            top: 55%;
+            right: 25px;
+            transform: translateY(-50%);
+            cursor: pointer;
+        }
+
+
     </style>
+
+    <!-- Icon Bootstrap -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.3/font/bootstrap-icons.css">
+
+    <!-- sweetAlert -->
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script src="https://cdn.bootcdn.net/ajax/libs/limonte-sweetalert2/11.7.0/sweetalert2.all.js"></script>
+
+
     <link href="{{ asset('style/css/stylelogin.css') }}" rel="stylesheet">
-    <svg class="wavestop" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 320">
+    <!--<svg class="wavestop" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 320">
         <path fill="#0099ff" fill-opacity="1"
             d="M0,224L48,186.7C96,149,192,75,288,42.7C384,11,480,21,576,74.7C672,128,768,224,864,256C960,288,1056,256,1152,234.7C1248,213,1344,203,1392,197.3L1440,192L1440,0L1392,0C1344,0,1248,0,1152,0C1056,0,960,0,864,0C768,0,672,0,576,0C480,0,384,0,288,0C192,0,96,0,48,0L0,0Z">
         </path>
-    </svg>
+    </svg> -->
     <div class="container">
         <div class="row vertical-center">
             <div class="col-lg-5 col-md-8 col-sm-12  mx-auto" style="z-index: 1">
@@ -38,7 +56,8 @@
                         </div>
                         <div class="row">
                             <div class="col-lg-12">
-                                <h5 class="card-title text-center">Hotel Information System</h5>
+                                <h5 class="card-title text-center" style="font-weight: bold">JJKSuite </h5>
+                                <p class="text-center"><i>Enter the Domain of Exquisite Comfort, where Jujutsu Magic Meets Luxury. </i></p> <br>
                             </div>
                         </div>
                         <form onsubmit="return disableButton()" class="form-signin" action="/postLogin" method="POST">
@@ -56,16 +75,19 @@
                                         @enderror
                                     </div>
                                     <div class="form-label-group">
-                                        <input type="password" id="password" name="password" autocomplete="new-password"
-                                            class="form-control @error('password') is-invalid @enderror" placeholder="Password" value="{{ old('password') }}"
-                                            required>
-                                        <label for="password">Password</label>
-                                        @error('password')
-                                            <span class="invalid-feedback" role="alert">
-                                                <strong>{{ $message }}</strong>
-                                            </span>
-                                        @enderror
-                                    </div>
+                                          <input type="password" id="password" name="password" autocomplete="new-password"
+                                              class="form-control @error('password') is-invalid @enderror" placeholder="Password" value="{{ old('password') }}"
+                                              required>
+                                          <i class="bi bi-eye-slash-fill toggle-password" id="togglePassword"></i>
+
+                                      <label for="password">Password</label>
+                                      @error('password')
+                                          <span class="invalid-feedback" role="alert">
+                                              <strong>{{ $message }}</strong>
+                                          </span>
+                                      @enderror
+                                  </div>
+
                                 </div>
                             </div>
                             <div class="row">
@@ -84,18 +106,58 @@
                                 </div>
                             </div>
                             <hr class="my-4">
-                            {{-- <p class="text-center">Doesnt have any account? <a href="/register">register</a></p> --}}
+                              <p class="text-center">Doesn't have any account? <a href="/register">Register Now</a></p>
                         </form>
                     </div>
                 </div>
             </div>
         </div>
     </div>
-    <svg class="wavesbottom" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 320">
+    <!--<svg class="wavesbottom" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 320">
         <path fill="#0099ff" fill-opacity="1"
             d="M0,224L48,213.3C96,203,192,181,288,154.7C384,128,480,96,576,122.7C672,149,768,235,864,234.7C960,235,1056,149,1152,117.3C1248,85,1344,107,1392,117.3L1440,128L1440,320L1392,320C1344,320,1248,320,1152,320C1056,320,960,320,864,320C768,320,672,320,576,320C480,320,384,320,288,320C192,320,96,320,48,320L0,320Z">
         </path>
-    </svg>
+    </svg>-->
+
+<!-- sweetAlert -->
+    @if (Session::has('success') && Session::get('success_type') === 'logout')
+      <script>
+          setTimeout(function() {
+              Swal.fire({
+                  icon: 'success',
+                  title: 'Logged Out!',
+                  text: "{{ Session::get('success') }}",
+                  type: 'success'
+              }).then(function() {
+                  window.location = "{{ url('dashboard') }}";
+              });
+          }, 1000);
+      </script>
+  @elseif (Session::has('success'))
+      <script>
+          setTimeout(function() {
+              Swal.fire({
+                  icon: 'success',
+                  title: 'Success!',
+                  text: "{{ Session::get('success') }}",
+                  type: 'success'
+              });
+          }, 1000);
+      </script>
+  @endif
+
+  @if (Session::has('failed'))
+      <script>
+          setTimeout(function() {
+              Swal.fire({
+                  icon: 'error',
+                  title: 'Oops...',
+                  html: "{{ Session::get('failed') }}",
+                  type: 'error'
+              });
+          }, 1000);
+      </script>
+  @endif
 
     <script>
         function disableButton() {
@@ -104,4 +166,20 @@
             $("#btn_submit").addClass("isLoading").attr('disabled', 'disabled');
         }
     </script>
+
+    <!-- Toggle Password -->
+    <script>
+      const togglePassword = document.querySelector("#togglePassword");
+      const password = document.querySelector("#password");
+
+      togglePassword.addEventListener("click", function() {
+        // toggle the type attribute
+        const type = password.getAttribute("type") === "password" ? "text" : "password";
+        password.setAttribute("type", type);
+
+        // toggle the icon
+        this.classList.toggle("bi-eye");
+      });
+    </script>
+
 @endsection

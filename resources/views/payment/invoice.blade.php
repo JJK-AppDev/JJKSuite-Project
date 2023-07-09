@@ -68,9 +68,9 @@
                                     <td class="text-center">{{ $payment->transaction->getDateDifferenceWithPlural() }}
                                     </td>
                                     <td class="text-center">
-                                        {{ Helper::convertToRiggit($payment->transaction->room->price) }}</td>
+                                        {{ Helper::convertToRinggit($payment->transaction->room->price) }}</td>
                                     <td class="text-center">
-                                        {{ Helper::convertToRiggit($payment->transaction->getTotalPrice()) }}</td>
+                                        {{ Helper::convertToRinggit($payment->transaction->getTotalPrice()) }}</td>
                                 </tr>
                             </tbody>
                         </table>
@@ -89,10 +89,10 @@
                                 <tr class="content">
                                     <td></td>
                                     <td class="text-center">
-                                        {{ Helper::convertToRiggit($payment->transaction->getMinimumDownPayment()) }}</td>
-                                    <td class="text-center">{{ Helper::convertToRiggit($payment->price) }}</td>
+                                        {{ Helper::convertToRinggit($payment->transaction->getMinimumDownPayment()) }}</td>
+                                    <td class="text-center">{{ Helper::convertToRinggit($payment->price) }}</td>
                                     <td class="text-center">
-                                        {{ $payment->transaction->getTotalPrice() - $payment->transaction->getTotalPayment() <= 0 ? '-' : Helper::convertToRiggit($payment->transaction->getTotalPrice($payment->transaction->room->price, $payment->transaction->check_in, $payment->transaction->check_out) - $payment->transaction->getTotalPayment()) }}
+                                        {{ $payment->transaction->getTotalPrice() - $payment->transaction->getTotalPayment() <= 0 ? '-' : Helper::convertToRinggit($payment->transaction->getTotalPrice($payment->transaction->room->price, $payment->transaction->check_in, $payment->transaction->check_out) - $payment->transaction->getTotalPayment()) }}
                                     </td>
                                 </tr>
                             </tbody>
